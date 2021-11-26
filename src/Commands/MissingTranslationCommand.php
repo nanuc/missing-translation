@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Nanuc\MissingTranslation\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class MissingTranslationCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'missing-translation';
 
     public $description = 'My command';
 

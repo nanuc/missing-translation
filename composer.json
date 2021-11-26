@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "nanuc/missing-translation",
+    "description": "This is my package missing-translation",
     "keywords": [
-        ":vendor_name",
+        "nanuc",
         "laravel",
-        ":package_slug"
+        "missing-translation"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/nanuc/missing-translation",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Sebastian Schöps",
+            "email": "sebastian.schoeps@nanuc.com",
             "role": "Developer"
         }
     ],
@@ -22,25 +22,21 @@
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10",
-        "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.22",
         "pestphp/pest": "^1.10",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.4",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Nanuc\\MissingTranslation\\": "src",
+            "Nanuc\\MissingTranslation\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Nanuc\\MissingTranslation\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Nanuc\\MissingTranslation\\MissingTranslationServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "MissingTranslation": "Nanuc\\MissingTranslation\\Facades\\MissingTranslation"
             }
         }
     },
