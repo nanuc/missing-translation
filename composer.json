@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.0",
         "spatie/laravel-package-tools": "^1.9.2",
+        "facade/ignition": "^2.5",
         "illuminate/contracts": "^8.37"
     },
     "require-dev": {
