@@ -25,12 +25,18 @@ Most translations can be found by using the Find command (see above), but in cas
 'Barryvdh\TranslationManager\TranslationServiceProvider',
 ```
 
+This functionality is disabled by default. You can enable it as followed in `.env`:
+```
+MISSING_TRANSLATION_ENABLE_REALTIME_CHECK=true
+```
+
 For this to work correctly please also set the following `.env` parameter to your base language (defaults to `en`).
 
 ```
 MISSING_TRANSLATION_BASE_LOCALE=de
 ```
 This will extend the Translator and will send a report to Flare, whenever a key is not found, so you have to visit the pages that use them. You shouldn't use this in production, just in development to translate your views, then just switch back.
+
 
 
 ## License
