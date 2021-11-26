@@ -1,5 +1,5 @@
 <?php
-// config for Nanuc/MissingTranslation
-return [
 
+return [
+    'base-locale' => env('MISSING_TRANSLATION_BASE_LOCALE', 'en'),
 ];
