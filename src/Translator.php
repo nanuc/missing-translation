@@ -6,6 +6,7 @@ use Facade\FlareClient\Api;
 use Facade\FlareClient\Http\Client;
 use Facade\FlareClient\Stacktrace\Stacktrace;
 use Facade\Ignition\Facades\Flare;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Translation\Translator as LaravelTranslator;
 
@@ -14,10 +15,7 @@ class Translator extends LaravelTranslator
     public function get($key, array $replace = array(), $locale = null, $fallback = true)
     {
         if(config('missing-translation.enable-realtime-check') && $locale != config('missing-translation.base-locale')) {
-            // Get without fallback
-            $result = parent::get($key, $replace, $locale, false);
-
-            if($result === $key) {
+            if(!$this->has($key, $locale)) {
                 $this->notifyMissingKey($key);
             }
         }
@@ -25,6 +23,15 @@ class Translator extends LaravelTranslator
         $result = parent::get($key, $replace, $locale, $fallback);
 
         return $result;
+    }
+
+    // also see https://github.com/laravel/framework/discussions/39798
+    public function has($key, $locale = null, $fallback = true)
+    {
+        $locale = $locale ?: $this->locale;
+        $this->load('*', '*', $locale);
+
+        return parent::get($key, [], $locale, false) !== $key || Arr::has($this->loaded['*']['*'][$locale], $key);
     }
 
     protected function notifyMissingKey($key)

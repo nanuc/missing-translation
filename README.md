@@ -21,8 +21,8 @@ art missing-translation:find {locale}
 Most translations can be found by using the Find command (see above), but in case you have dynamic keys (variables/automatic forms etc), it can be helpful to 'listen' to the missing translations. To detect missing translations, we can swap the Laravel TranslationServiceProvider with a custom provider. In your config/app.php, comment out the original TranslationServiceProvider and add the one from this package:
 
 ```
-//'Illuminate\Translation\TranslationServiceProvider',
-'Barryvdh\TranslationManager\TranslationServiceProvider',
+// Illuminate\Translation\TranslationServiceProvider::class,
+Nanuc\MissingTranslation\TranslationServiceProvider::class',
 ```
 
 This functionality is disabled by default. You can enable it as followed in `.env`:
