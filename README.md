@@ -12,7 +12,7 @@ composer require nanuc/missing-translation
 
 ### Find and enter missing translations
 ```
-art missing-translation:find {locale}
+art missing-translation:find {from} {to}
 ```
 
 ### Report missing translations

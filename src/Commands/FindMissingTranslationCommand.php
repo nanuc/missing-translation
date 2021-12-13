@@ -3,13 +3,15 @@
 namespace Nanuc\MissingTranslation\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 class FindMissingTranslationCommand extends Command
 {
-    public $signature = 'missing-translation:find {language=en : Language to use}';
+    public $signature = 'missing-translation:find {to=de : Target language}';
 
     public $description = 'Find (and correct) missing translations';
 
@@ -116,8 +118,11 @@ class FindMissingTranslationCommand extends Command
         }
 
         if ($this->confirm('Do you want to translate the missing phrases now?')) {
+            $useDeepL = $this->confirm('Do you want to use DeepL for auto-translation?');
+
             foreach ($missingTranslations as $missingTranslation) {
-                $translation = $this->ask('Please enter translation (locale: ' . $this->argument('language') . ') for "' . $missingTranslation . '"');
+                $proposal = $useDeepL ? $this->autoTranslate($missingTranslation) : null;
+                $translation = $this->ask('Please enter translation (locale: ' . $this->argument('to') . ') for "' . $missingTranslation . '"', $proposal);
 
                 if(strlen($translation) > 0) {
                     $translations = $this->getAvailableStrings();
@@ -136,6 +141,15 @@ class FindMissingTranslationCommand extends Command
 
     public function langFile()
     {
-        return resource_path('lang/'.$this->argument('language').'.json');
+        return resource_path('lang/'.$this->argument('to').'.json');
+    }
+
+    private function autoTranslate($text)
+    {
+        return Arr::get(Http::get(config('missing-translation.deep-l.endpoint'), [
+            'auth_key' => config('missing-translation.deep-l.auth-key'),
+            'target_lang' => $this->argument('to'),
+            'text' => $text,
+        ])->json(), 'translations.0.text');
     }
 }
