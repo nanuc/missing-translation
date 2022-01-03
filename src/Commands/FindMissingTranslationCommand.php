@@ -140,7 +140,7 @@ class FindMissingTranslationCommand extends Command
 
         $finder = new Finder();
         $finder->in(base_path())
-            ->name($this->argument('language').'.json')
+            ->name($this->argument('to').'.json')
             ->files();
 
         foreach($finder as $file) {
