@@ -136,7 +136,18 @@ class FindMissingTranslationCommand extends Command
 
     public function getAvailableStrings()
     {
-        return json_decode(File::get($this->langFile()), true);
+        $availableStrings = [];
+
+        $finder = new Finder();
+        $finder->in(base_path())
+            ->name($this->argument('language').'.json')
+            ->files();
+
+        foreach($finder as $file) {
+            $availableStrings = array_merge($availableStrings, json_decode(File::get($file->getRealPath()), true));
+        }
+
+        return $availableStrings;
     }
 
     public function langFile()
